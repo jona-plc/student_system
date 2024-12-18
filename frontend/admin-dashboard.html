@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="admin-dashboard"> 
+    
+    <div id="slidingMenuOverlay" class="overlay"></div> >
+    <div id="slidingMenu">
+        <div class="close-btn" onclick="toggleMenu()">✖</div>
+        <ul>
+        
+            <li><a href="#" id="home-link">Home</a></li>
+            <li><a href="create-u-announcement.html">Announcements</a></li>
+            <li><a href="index.html">Logout</a></li>
+        </ul>
+    </div>
+    
+    
+    <div class="menu-icon" onclick="toggleMenu()">☰</div>
+
+    <div class="dashboard">
+        <header class="dashboard-header">
+           
+            <h1>ADMIN DASHBOARD</h1>
+        </header>
+           
+        <main class="dashboard-main">
+            <div class="stats">
+                <div class="chart">
+                    <h2>Student Statistics</h2>
+                    <canvas id="statsChart" width="400" height="200"></canvas>
+                </div>
+                <div class="metrics">
+                    <div class="metric-box">
+                        <h3>Total Registered</h3>
+                        <p id="totalRegistered"></p>
+                        <div class="metric-icon">👤</div>
+                    </div>
+                    <div class="metric-box">
+                        <h3>Total Records</h3>
+                        <p id="totalRecords"></p>
+                        <div class="metric-icon">🛒</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="search-bar">
+                <input type="text" id="search-input" placeholder="Search by name, email, or username">
+                <button id="search-button">🔍</button>
+            </div>
+            <table id="data-table">
+                <thead>
+                    <tr>
+                        <th>Full Name</th>
+                        <th>Gender</th>
+                        <th>Email</th>
+                        <th>Student ID</th>
+                        <th>Classes</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  
+                </tbody>
+            </table>
+        </div>
+<div id="edit-modal" class="edit-custom-modal">
+    <div class="edit-custom-modal-content">
+        <h2>Edit Student Info</h2>
+        <form id="edit-form">
+            <input type="hidden" id="edit-id">
+            <label for="edit-full-name">Full Name</label>
+            <input type="text" id="edit-full-name" required>
+        
+            <label for="edit-gender">Gender</label>
+            <input type="text" id="edit-gender" required>
+        
+            <label for="edit-email">Email</label>
+            <input type="email" id="edit-email" required>
+        
+            <label for="edit-classes">Classes</label>
+            <input type="text" id="edit-classes" required>
+        
+            <button type="submit" id="save-edit">Save</button>
+            <button type="button" id="cancel-edit">Cancel</button>
+            
+        </form>
+    </div>
+</div>
+
+<div id="success-modal" class="success-modal" style="display: none;">
+    <div class="success-modal-content">
+        <h2>Student information updated successfully!</h2>
+        <button id="ok-success">OK</button>
+    </div>
+</div>
+
+
+<div id="delete-modal" class="custom-modal">
+    <div class="custom-modal-content">
+        <h2>Are you sure you want to delete this record?</h2>
+        <p>This action cannot be undone.</p>
+        <button id="confirm-delete">Yes, delete</button>
+        <button id="cancel-delete">Cancel</button>
+    </div>
+</div>
+
+<div id="delete-success-modal" class="delete-success-modal" style="display: none;">
+    <div class="delete-success-modal-content">
+        <h2>Student record deleted successfully!</h2>
+        <button id="ok-delete-success">OK</button>
+    </div>
+</div>
+<script src="script.js"></script> 
+
+</body>
+</html>

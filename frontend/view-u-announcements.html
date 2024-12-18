@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Information Management System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    
+</head>
+   
+    <div class="user-icon" id="user-menu-icon">
+        <i class="fas fa-user-circle"></i>
+    </div>
+
+    <div class="menu-container" id="menu-container">
+        <a href="student-dashboard.html" class="menu-item">Home</a>
+        <a href="view-u-announcements.html" class="menu-item">Announcement</a>
+        <a href="index.html" class="menu-item">Logout</a>
+    </div>
+<body class="view-announcement-page">
+
+    <div id="view-announcement-section" class="view-announcement-section">
+        <h1>Announcements</h1>
+        <div id="view-announcement-container" class="view-announcement-container">
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            fetchAnnouncements();
+        });
+
+        function fetchAnnouncements() {
+            fetch('/api/u-unique-announcements')  
+                .then(response => response.json())
+                .then(data => {
+                    const announcementsContainer = document.getElementById('view-announcement-container');
+                    announcementsContainer.innerHTML = '';  
+
+                    if (data.length === 0) {
+                        announcementsContainer.innerHTML = '<p>No announcements available.</p>';
+                    } else {
+                        data.forEach(announcement => {
+                            const announcementElement = document.createElement('div');
+                            announcementElement.classList.add('announcement-item');
+
+                           
+                            announcementElement.innerHTML = `
+                                <h3>${announcement.u_title}</h3>
+                                <p>${announcement.u_content}</p>
+                                <small>Created at: ${new Date(announcement.u_created_at).toLocaleString()}</small>
+                            `;
+                            announcementsContainer.appendChild(announcementElement);
+                        });
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching announcements:', error);
+                    const announcementsContainer = document.getElementById('view-announcement-container');
+                    announcementsContainer.innerHTML = '<p>There was an error fetching announcements.</p>';
+                });
+        }
+        document.addEventListener("DOMContentLoaded", () => {
+        const userMenuIcon = document.getElementById("user-menu-icon");
+        const menuContainer = document.getElementById("menu-container");
+
+        userMenuIcon.addEventListener("click", () => {
+            menuContainer.style.display = menuContainer.style.display === "block" ? "none" : "block";
+        });
+    });
+    </script>
+</body>
+</html>

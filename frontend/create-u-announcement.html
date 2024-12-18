@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Announcement</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Assuming you have a shared stylesheet -->
+</head>
+<body class="admin-dashboard">
+    <!-- Sliding Menu -->
+    <div id="slidingMenuOverlay" class="overlay"></div> <!-- Background overlay -->
+    <div id="slidingMenu">
+        <div class="close-btn" onclick="toggleMenu()">✖</div>
+        <ul>
+            <li><a href="#" id="home-link">Home</a></li>
+            <li><a href="create-u-announcement.html">Announcements</a></li>
+            <li><a href="index.html">Logout</a></li>
+        </ul>
+        </ul>
+    </div>
+    
+    <!-- Menu Icon -->
+    <div class="menu-icon" onclick="toggleMenu()">☰</div>
+
+    <div class="create-announcement-form">
+        <h1>Create Announcement</h1>
+        <form id="announcement-form">
+            <input type="text" id="announcement-title" name="title" placeholder="Enter the title of the announcement" required>
+            <textarea id="announcement-content" name="content" placeholder="Enter the content of the announcement" required></textarea>
+            
+            <button type="submit" id="submit-announcement">Create Announcement</button>
+        </form>
+        <p id="announcement-message"></p>
+    </div>
+ 
+<!-- Background Overlay -->
+<div id="modal-overlay" class="overlay"></div>
+
+<!-- Announcement Success Modal -->
+<div id="announcement-success-modal" class="announcement-success-modal">
+    <div class="modal-content">
+        <h2>🎉 Announcement Created Successfully!</h2>
+        <p>Your announcement has been successfully created and saved.</p>
+        <button id="close-announcement-success">OK</button>
+    </div>
+</div>
+
+<!-- Announcement Error Modal -->
+<div id="announcement-error-modal" class="announcement-error-modal">
+    <div class="modal-content">
+        <h2>❌ Error Creating Announcement</h2>
+        <p>Something went wrong while creating your announcement. Please try again.</p>
+        <button id="close-announcement-error">OK</button>
+    </div>
+</div>
+
+<!-- Footer Section -->
+<footer class="footer">
+    <p>&copy; 2024 Student Information Management System. All rights reserved.</p>
+</footer>
+<script>
+    function toggleMenu() {
+    var menu = document.getElementById("slidingMenu");
+    var body = document.body;
+    menu.classList.toggle("open");
+    body.classList.toggle("dimmed");
+}
+document.addEventListener("DOMContentLoaded", function () {
+    const announcementForm = document.getElementById("announcement-form");
+    const successModal = document.getElementById("announcement-success-modal");
+    const errorModal = document.getElementById("announcement-error-modal");
+    const homeLink = document.getElementById("home-link");
+
+    // Success Modal Close Button
+    document.getElementById("close-announcement-success").addEventListener("click", function () {
+        successModal.style.display = "none";  // Hide the success modal
+        location.reload(); // Reload the page without redirecting
+    });
+
+    // Error Modal Close Button
+    document.getElementById("close-announcement-error").addEventListener("click", function () {
+        errorModal.style.display = "none";  // Hide the error modal
+    });
+
+    // Handle form submission
+    announcementForm.addEventListener("submit", function (e) {
+        e.preventDefault();  // Prevent the form from reloading the page
+
+        const title = document.getElementById("announcement-title").value;
+        const content = document.getElementById("announcement-content").value;
+
+        console.log('Title:', title);  // Check if the data is correct
+        console.log('Content:', content);  // Check if the data is correct
+
+        // Send POST request to the backend to save the announcement
+        fetch('/api/u-unique-announcements', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ title, content })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                successModal.style.display = "block";  // Show success modal
+            } else {
+                errorModal.style.display = "block";  // Show error modal
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            errorModal.style.display = "block";  // Show error modal if there is a catch
+        });
+    });
+
+    if (homeLink) {
+        homeLink.addEventListener("click", function (e) {
+            e.preventDefault();
+            window.location.href = "/admin-dashboard";
+        });
+    } else {
+        console.error("home-link element is not found!");
+    }
+});
+
+
+</script>
+</body>
+</html>

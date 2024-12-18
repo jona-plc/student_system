@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Information Management System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+    <div class="user-icon" id="user-menu-icon">
+        <i class="fas fa-user-circle"></i>
+    </div>
+
+    <div class="menu-container" id="menu-container">
+        <a href="student-dashboard.html" class="menu-item">Home</a>
+        <a href="view-u-announcements.html" class="menu-item">Announcement</a>
+        <a href="index.html" class="menu-item">Logout</a>
+    </div>
+<body class="student-dashboard"
+    <!-- Form Section -->
+    <div id="form-section">
+        <p id="student-record-title">STUDENT RECORD</p>
+        <p id="form-description">Fill out the form carefully</p>
+        <form id="student-form" action="/submit-student" method="POST">
+            <label for="first_name">Student Name:</label>
+            <div id="name-fields">
+                <input type="text" id="first_name" name="first_name" placeholder="First Name" required>
+                <input type="text" id="middle_name" name="middle_name" placeholder="Middle Name">
+                <input type="text" id="last_name" name="last_name" placeholder="Last Name" required>
+            </div>
+            
+            <label for="gender">Gender:</label>
+            <select id="gender" name="gender" required>
+                <option value="">Please Select</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+            
+            <label for="email">Student E-mail:</label>
+            <input type="email" id="email" name="email" placeholder="example@example.com" required>
+            
+            <label for="student_id">Student ID:</label>
+            <input type="text" id="student_id" name="student_id" required>
+            
+            <label for="classes">List of Classes:</label>
+            <select id="classes" name="classes" required>
+                <option value="">Please Select</option>
+                <option value="Block 1">Block 1</option>
+                <option value="Block 2">Block 2</option>
+                <option value="Block 3">Block 3</option>
+            </select>
+            <button type="submit" id="submit-button">Submit</button>
+        </form>
+        
+        <div id="success-modal" class="success-modal" style="display:none;">
+            <div class="success-modal-content">
+                <h2>Student record saved successfully!</h2>
+                <button id="ok-success">OK</button>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
